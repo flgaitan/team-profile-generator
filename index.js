@@ -3,19 +3,19 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
 
-//page creation
-const profileMarkdown = require('./src/profileMarkdown');
+//page markdown link
+const generateIndexHTML = require('./src/profileMarkdown');
 
 //required team members 
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
-const Employee = require('./lib/Employee');
+//const Employee = require('./lib/Employee');
 
 //team array
 const teamList = [];
 
-
+//starting adding the head of the employees = manager
 const addManager = () => {
     return inquirer.prompt
     ([
@@ -142,7 +142,7 @@ const addMembers = () => {
             console.log(employee);
         }
         teamList.push(employee);
-        
+
         })
 
     }
@@ -353,10 +353,27 @@ const addMembers = () => {
 // //defining next member function that will populate whatever team member needs to be filled out next
 
 // //needs work
+const writeFile = data => {
+    fs.watchFile('./dist/index.html', data, err => {
+        if (err){
+            console.log(err, "Error here");
+            return;
+        } else {
+            console.log("Team members have been successfully created in index.html");
+        }
+    })
+};
 
-fs.writeFile ("./")
 
-init();
-
-
+addManager()
+.then(addMembers)
+.then(teamList => {
+    return generateIndexHTML(teamList);
+})
+.then(indexHtml => {
+    return writeFile(indexHtml);
+})
+.catch(err => {
+    console.log(err, "Error!");
+});
 
