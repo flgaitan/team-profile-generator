@@ -10,66 +10,173 @@ const profileMarkdown = require('./src/profileMarkdown');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
+const Employee = require('./lib/Employee');
 
 //team array
 const teamList = [];
 
 
-function init() {
-    addEmployee();
-}
-
-function addEmployee() {
-    inquirer.prompt([
+const addManager = () => {
+    return inquirer.prompt
+    ([
         {
-            message: "Enter employee name",
+            type: "input",
             name: "name",
+            message: "Enter team manager's name",
+            
         },
-        {
-            type: "list",
-            message: "Select employee role",
-            choices: [
-                "Manager",
-                "Engineer",
-                "Intern"
-            ],
-            name: "role",
-        },
-        {
+         {
+            type: "input",
             message: "Enter employee ID",
-            name: "id"
+            name: "id",
+            validate: nameInput => {
+                if (isNaN(nameInput)){
+                    console.log("Please enter a valid ID")
+                    return false;
+                }else {
+                    return true;
+                }
+            }
         },
         {
-            message: "Enter employee email",
-            name: "email"
+            type: "input",
+            name: "email",
+            message: "Enter manager's email"
+        },
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "Please enter manager's office number",
+            validate: nameInput => {
+                if (isNaN(nameInput)){
+                    console.log("Please enter a valid ID")
+                    return false;
+                }else {
+                    return true;
+                }
+            }
         }
     ])
-}
-.then(function({name, role, id, email}) {
-    let employeeRole = "";
-    if (role === "Manager") {
-        employeeRole = "office phone number";
-    } else if (role === "Engineer") {
-        employeeRole = "github_username";
-    } else {
-        employeeRole = "school";
-    }
-    inquirer.prompt([
-        {
-            message: `Enter employee ${employeeRole}`,
-            name: "employeeRole"
-        },
+    .then(managerInput => {
+        const {name, role, id, email} = managerInput;
+        const manager = new Manager (name, id, email, role);
+
+        teamList.push(manager);
+        console.log(manager, "New manager added");
+    })
+
+};
+
+const addMembers = () => {
+    return inquirer.prompt ([
         {
             type: "list",
-            message: "Would you like to add any more members to the team?",
-            choices: [
-                "yes",
-                "no"
-            ],
-            name: "moreEmployees"
+            name: "role",
+            message: "Choose employee's role:",
+            choices: 
+            [
+                'Engineer',
+                'Intern'
+            ]
+        },
+        {
+            type: "input",
+            name: "name",
+            message: "Enter employee name",
+        },
+        {
+            type: "input",
+            message: "Enter employee ID",
+            name: "id",
+            validate: nameInput => {
+                if (isNaN(nameInput)){
+                    console.log("Please enter a valid ID")
+                    return false;
+                }else {
+                    return true;
+                }
+            }
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Enter employee's email"
+        },
+        {
+            type: "input",
+            name: "github_username",
+            message: "Enter employee's GitHub username",
+            when: (input) => input.role === "Engineer",
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log("Please enter engineer's GitHub username");
+                }
+            }
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "Enter Intern's last school attended",
+            when: (input) => input.role === "Intern",
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log("Please enter Intern's school");
+                }
+            }
         }
     ])
-});
+    .then(membersInput => {
+        //inputs
+        let {name, id, email, role, github_username, school} = membersInput;
+        let employee;
+        if (role == "Engineer") {
+            employee = new Engineer(name, id, email, github_username);
+            console.log(employee);
+
+        } else if (role == "Intern") {
+            employee = new Intern (name, id, role, school);
+            console.log(employee);
+        }
+        teamList.push(employee);
+        
+        })
+
+    }
+
+
+ 
+//            
+//     ])
+// }
+// .then(function({name, role, id, email}) {
+//     let employeeRole = "";
+//     if (role === "Manager") {
+//         employeeRole = "office phone number";
+//     } else if (role === "Engineer") {
+//         employeeRole = "github_username";
+//     } else {
+//         employeeRole = "school";
+//     }
+//     inquirer.prompt([
+//         {
+//             message: `Enter employee ${employeeRole}`,
+//             name: "employeeRole"
+//         },
+//         {
+//             type: "list",
+//             message: "Would you like to add any more members to the team?",
+//             choices: [
+//                 "yes",
+//                 "no"
+//             ],
+//             name: "moreEmployees"
+//         }
+//     ])
+// });
     // .then(function ({ employeeRole, moreEmployees }) {
     //     let newEmployee;
     //     if (role === "Manager") {
@@ -92,56 +199,54 @@ function addEmployee() {
 
 
 
-// //Manager array
-// const promptManager = () => {
-//     console.log('\n\n-- Manager --');
+//  //Manager array
+//  const promptManager = () => {
+//      return inquirer.prompt ([
 
-//     return inquirer.prompt ([
+//      {
+//          type: 'input',
+//          name: 'name',
+//          message: 'Please provide the name of the team manager',
 
-//     {
-//         type: 'input',
-//         name: 'name',
-//         message: 'Please provide the name of the team manager',
+//          },
 
-//         },
+//      {
+//          type: 'input',
+//          name: 'id',
+//          message: 'Provide manager ID',
 
-//     {
-//         type: 'input',
-//         name: 'id',
-//         message: 'Provide manager ID',
+//      },
 
-//     },
+//      {
+//          type: 'input',
+//          name: 'email',
+//          message: 'Provide manager email',
 
-//     {
-//         type: 'input',
-//         name: 'email',
-//         message: 'Provide manager email',
+//      },
 
-//     },
+//      {
+//          type: 'input',
+//          name: 'officeNumber',
+//          message: 'Please provide office number',
 
-//     {
-//         type: 'input',
-//         name: 'officeNumber',
-//         message: 'Please provide office number',
+//      },
 
-//     },
+//      ])
+//      .then(teamManager => {
+//          const {name, id, email, officeNumber} = teamManager;
+//          const manager = new Manager (
+//              name, 
+//              id, 
+//              email, 
+//              officeNumber
+//              );
 
-//     ])
-//     .then(teamManager => {
-//         const {name, id, email, officeNumber} = teamManager;
-//         const manager = new Manager (
-//             name, 
-//             id, 
-//             email, 
-//             officeNumber
-//             );
+//          teamList.push(Manager);
+//          console.log(Manager, "Manager added to the list");
 
-//         teamList.push(manager);
-//         console.log(manager, "Manager added to the list");
+//      })
 
-//     })
-
-// };
+//  };
 
 // const promptEngineer = () => {
 //     console.log('\n\n-- Engineer --');
