@@ -18,57 +18,59 @@ const teamList = [];
 //starting adding the head of the employees = manager
 const addManager = () => {
     return inquirer.prompt
-    ([
-        {
-            type: "input",
-            name: "name",
-            message: "Enter team manager's name",
-            
-        },
-         {
-            type: "input",
-            message: "Enter employee ID",
-            name: "id",
-            validate: nameInput => {
-                if (isNaN(nameInput)){
-                    console.log("Please enter a valid ID")
-                    return false;
-                }else {
-                    return true;
-                }
-            }
-        },
-        {
-            type: "input",
-            name: "email",
-            message: "Enter manager's email"
-        },
-        {
-            type: "input",
-            name: "officeNumber",
-            message: "Please enter manager's office number",
-            validate: nameInput => {
-                if (isNaN(nameInput)){
-                    console.log("Please enter a valid number")
-                    return false;
-                }else {
-                    return true;
-                }
-            }
-        }
-    ])
-    .then(managerInput => {
-        const {name, officeNumber, id, email} = managerInput;
-        const manager = new Manager (name, id, email, officeNumber);
+        ([
+            {
+                type: "input",
+                name: "name",
+                message: "Enter team manager's name",
 
-        teamList.push(manager);
-        console.log(manager, "New manager added");
-    })
+            },
+            {
+                type: "input",
+                message: "Enter employee ID",
+                name: "id",
+                validate: nameInput => {
+                    if (isNaN(nameInput)) {
+                        console.log("Please enter a valid ID")
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            },
+            {
+                type: "input",
+                name: "email",
+                message: "Enter manager's email"
+            },
+            {
+                type: "input",
+                name: "officeNumber",
+                message: "Please enter manager's office number",
+                validate: nameInput => {
+                    if (isNaN(nameInput)) {
+                        console.log("Please enter a valid number")
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
+
+        ])
+        .then(managerInput => {
+            const { name, officeNumber, id, email } = managerInput;
+            const manager = new Manager(name, id, email, officeNumber);
+
+            teamList.push(manager);
+            console.log(manager, "New manager added");
+        })
+        console.log(prompt.length);
 
 };
-
 const addMembers = () => {
-    return inquirer.prompt ([
+    return inquirer.prompt 
+    ([
         {
             type: "list",
             name: "role",
@@ -149,12 +151,13 @@ const addMembers = () => {
     }
 
 
- 
 
 
-// //defining next member function that will populate whatever team member needs to be filled out next
 
-// //needs work
+//defining next member function that will populate whatever team member needs to be filled out next
+// let data = Object.entries(teamList);
+// console.log(data, "ERR");
+//needs work
 const writeFile = data => {
     fs.watchFile('./dist/teamIndex.html', data, err => {
         if (err){
@@ -166,16 +169,17 @@ const writeFile = data => {
     })
 };
 
-
 addManager()
-.then(addMembers)
-.then(teamList => {
-    return generateIndexHTML(teamList);
-})
-.then(indexHTML => {
+  .then(addMembers)
+  .then(teamList => {
+    return generateHTML(teamList);
+  })
+  .then(indexHTML => {
     return writeFile(indexHTML);
-})
-.catch(err => {
-    console.log(err, "BIG Error here!");
-});
+  })
+  .catch(err => {
+ console.log(err);
+  });
+
+
 

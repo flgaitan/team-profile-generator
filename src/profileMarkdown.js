@@ -49,6 +49,7 @@ const generateIntern = function (intern) {
     `
 };
 
+
 //bind this array to page that will later produce you html file
 generateIndexHTML = (data) => {
     membersArray = [];
@@ -56,7 +57,7 @@ generateIndexHTML = (data) => {
 
     //loop so it can go through all
     for (let i=0; i<data.length; i++){
-        const employee = data[i];
+        const employee = Data[i];
         const role = employee.getRole();
 
     //bind manager func
