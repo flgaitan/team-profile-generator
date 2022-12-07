@@ -52,6 +52,7 @@ const generateIntern = function (intern) {
 //bind this array to page that will later produce you html file
 generateIndexHTML = (data) => {
     membersArray = [];
+    console.log("contents of data: " + data);
 
     //loop so it can go through all
     for (let i=0; i<data.length; i++){
