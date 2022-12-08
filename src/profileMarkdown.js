@@ -1,3 +1,5 @@
+
+
 const generateMan = function (manager) {
     return `
     <div class="col">
@@ -50,14 +52,17 @@ const generateIntern = function (intern) {
 };
 
 
-//bind this array to page that will later produce you html file
+//bind this array to page that will later produce your html file
+
 generateIndexHTML = (data) => {
+    //let Data = JSON.stringify();
     membersArray = [];
-    console.log("contents of data: " + data);
+    console.log("contents of data: ");
 
     //loop so it can go through all
+    
     for (let i=0; i<data.length; i++){
-        const employee = Data[i];
+        const employee = data[i];
         const role = employee.getRole();
 
     //bind manager func

@@ -13,173 +13,170 @@ const Engineer = require('./lib/Engineer');
 //const Employee = require('./lib/Employee');
 
 //team array
-const teamList = [];
+//teamList = JSON.stringify(employeeQs);
 
 //starting adding the head of the employees = manager
-const addManager = () => {
-    return inquirer.prompt
-        ([
-            {
-                type: "input",
-                name: "name",
-                message: "Enter team manager's name",
+const employeeQs = [
+    {
+        type: "input",
+        name: "name",
+        message: "Enter team manager's name",
 
-            },
-            {
-                type: "input",
-                message: "Enter employee ID",
-                name: "id",
-                validate: nameInput => {
-                    if (isNaN(nameInput)) {
-                        console.log("Please enter a valid ID")
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-            },
-            {
-                type: "input",
-                name: "email",
-                message: "Enter manager's email"
-            },
-            {
-                type: "input",
-                name: "officeNumber",
-                message: "Please enter manager's office number",
-                validate: nameInput => {
-                    if (isNaN(nameInput)) {
-                        console.log("Please enter a valid number")
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
+    },
+    {
+        type: "input",
+        message: "Enter manager's employee ID",
+        name: "id",
+        validate: nameInput => {
+            if (isNaN(nameInput)) {
+                console.log("Please enter a valid ID")
+                return false;
+            } else {
+                return true;
             }
-
-        ])
-        .then(managerInput => {
-            const { name, officeNumber, id, email } = managerInput;
-            const manager = new Manager(name, id, email, officeNumber);
-
-            teamList.push(manager);
-            console.log(manager, "New manager added");
-        })
-        console.log(prompt.length);
-
-};
-const addMembers = () => {
-    return inquirer.prompt 
-    ([
-        {
-            type: "list",
-            name: "role",
-            message: "Choose employee's role:",
-            choices: 
+        }
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "Enter manager's email"
+    },
+    {
+        type: "input",
+        name: "officeNumber",
+        message: "Please enter manager's office number",
+        validate: nameInput => {
+            if (isNaN(nameInput)) {
+                console.log("Please enter a valid number")
+                return false;
+            } else {
+                return true;
+            }
+        }
+    },
+    {
+        type: "list",
+        name: "role",
+        message: "Choose employee's role:",
+        choices:
             [
                 'Engineer',
                 'Intern'
             ]
-        },
-        {
-            type: "input",
-            name: "name",
-            message: "Enter employee name",
-        },
-        {
-            type: "input",
-            message: "Enter employee ID",
-            name: "id",
-            validate: nameInput => {
-                if (isNaN(nameInput)){
-                    console.log("Please enter a valid ID")
-                    return false;
-                }else {
-                    return true;
-                }
-            }
-        },
-        {
-            type: "input",
-            name: "email",
-            message: "Enter employee's email"
-        },
-        {
-            type: "input",
-            name: "github_username",
-            message: "Enter employee's GitHub username",
-            when: (input) => input.role === "Engineer",
-            validate: nameInput => {
-                if (nameInput) {
-                    return true;
-                } else {
-                    console.log("Please enter engineer's GitHub username");
-                }
-            }
-        },
-        {
-            type: "input",
-            name: "school",
-            message: "Enter Intern's last school attended",
-            when: (input) => input.role === "Intern",
-            validate: nameInput => {
-                if (nameInput) {
-                    return true;
-                } else {
-                    console.log("Please enter Intern's school");
-                }
+    },
+    {
+        type: "input",
+        name: "Engineer's name",
+        message: "Enter engineers employee name",
+    },
+    {
+        type: "input",
+        message: "Enter engineer's employee ID",
+        name: "Engineer's Id",
+        validate: nameInput => {
+            if (isNaN(nameInput)) {
+                console.log("Please enter a valid ID");
+                return false;
+            } else {
+                return true;
             }
         }
-    ])
-    .then(membersInput => {
-        //inputs
-        let {name, id, email, github_username, role, school} = membersInput;
-        let employee;
-        if (role === "Engineer") {
-            employee = new Engineer(name, id, email, github_username);
-            console.log(employee);
-
-        } else if (role === "Intern") {
-            employee = new Intern (name, id, email, school);
-            console.log(employee);
+    },
+    {
+        type: "input",
+        name: "Enter engineer's email",
+        message: "Enter employee's email"
+    },
+    {
+        type: "input",
+        name: "github_username",
+        message: "Enter engineer's GitHub username",
+        //when: (input) => input.role === "Engineer",
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log("Please enter engineer's GitHub username");
+            }
         }
-        teamList.push(employee);
-        console.log(teamList);
-
-        })
-
+    },
+    {
+        type: "input",
+        name: " Intern's name",
+        message: "Enter intern's name",
+    },
+    {
+        type: "input",
+        message: "Enter intern's employee ID",
+        name: " Intern's Id",
+        validate: nameInput => {
+            if (isNaN(nameInput)) {
+                console.log("Please enter a valid ID");
+                return false;
+            } else {
+                return true;
+            }
+        }
+    },
+    {
+        type: "input",
+        name: "Intern's email",
+        message: "Enter intern's email"
+    },
+    {
+        type: "input",
+        name: "school",
+        message: "Enter Intern's last school attended",
+        //when: (input) => input.role === "Intern",
+        validate: nameInput => {
+            if (nameInput) {
+                return true;
+            } else {
+                console.log("Please enter Intern's school");
+            }
+        }
     }
+];
+        
+   const inputs = () => {
+    //inputs
+    let { name, id, email, github_username, role, school } = inputs;
+    let employee;
+    if (role === "Engineer") {
+        employee = new Engineer(name, id, email, github_username);
+        console.log(employee, "Engineer is in");
+
+    } else if (role === "Intern") {
+        employee = new Intern(name, id, email, school);
+        console.log(employee, "Intern in");
+    }
+    employeeQs.push(employee);
+    console.log(employeeQs);
+
+};
+
+const data = JSON.stringify(employeeQs);
 
 
 
 
 
 //defining next member function that will populate whatever team member needs to be filled out next
-// let data = Object.entries(teamList);
-// console.log(data, "ERR");
 //needs work
-const writeFile = data => {
-    fs.watchFile('./dist/teamIndex.html', data, err => {
-        if (err){
-            console.log(err, "Error here");
-            return;
-        } else {
-            console.log("Team members have been successfully created in index.html");
-        }
-    })
+
+
+function writeToFile(fileName, data) {
+    fs.writeFileSync(path.join(process.cwd(), fileName), data);
+};
+// TODO: Create a function to initialize app
+function init() {
+    inquirer.prompt(employeeQs)
+        .then(function (inputs) {
+            console.log('creating Index...')
+            writeToFile("Index.hmtl", generateIndexHTML({ ...inputs }));
+        });
 };
 
-addManager()
-  .then(addMembers)
-  .then(teamList => {
-    return generateHTML(teamList);
-  })
-  .then(indexHTML => {
-    return writeFile(indexHTML);
-  })
-  .catch(err => {
- console.log(err);
-  });
 
-
+init();
 
