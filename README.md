@@ -18,12 +18,16 @@ use node through terminal
 
 GITHUB REPO: https://github.com/flgaitan/team-profile-generator
 
-VIDEO LINK : https://drive.google.com/file/d/1Qmh_AwI0zc3PRLFOQwM5tFRvPR-2_wBs/view
+VIDEO LINK : https://drive.google.com/file/d/1mO3-JONQAiSSykelvr3anafK7H9U-4pB/view
 
 Provide instructions and examples for use. Include screenshots as needed.
 
 To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative file path, add it to your README using the following syntax:
 ![alt text](./Assets/images/team-profile-screenshot.png)
+![alt text](./Assets/images/test%20screenshot.png)
+![alt text](./Assets/images/Questions%20populated%20screenshot.png)
+
+
 ![alt text](assets/images/screenshot.png)
 
 ## Credits
@@ -39,5 +43,4 @@ ISC
 
 ## Tests
 
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.
-VIDEO LINK PROVIDED
+VIDEO LINK : https://drive.google.com/file/d/1mO3-JONQAiSSykelvr3anafK7H9U-4pB/view
