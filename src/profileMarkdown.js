@@ -50,7 +50,7 @@ const generateIntern = function (intern) {
              </div>
     `
 };
-
+JSON.st
 
 //bind this array to page that will later produce your html file
 
