@@ -54,7 +54,7 @@ JSON.st
 
 //bind this array to page that will later produce your html file
 
-generateIndexHTML = (data) => {
+generateIndexHTML = data => {
     //let Data = JSON.stringify();
     membersArray = [];
     console.log("contents of data: ");
@@ -62,26 +62,26 @@ generateIndexHTML = (data) => {
     //loop so it can go through all
     
     for (let i=0; i<data.length; i++){
-        const employee = data[i];
-        const role = employee.getRole();
+        const team = data[i];
+        const role = team.getRole();
 
     //bind manager func
     if (role === 'Manager'){
-        const manCard = generateMan(employee);
+        const manCard = generateMan(team);
 
         membersArray.push(manCard);
     }
 
     //bind engineer
     if (role === 'Engineer'){
-        const engCard = generateEng(employee);
+        const engCard = generateEng(team);
 
         membersArray.push(engCard);
     }
 
     //bind intern
     if (role === 'Intern'){
-        const internCard = generateIntern(employee);
+        const internCard = generateIntern(team);
 
         membersArray.push(internCard);
     }

@@ -10,8 +10,8 @@ const generateIndexHTML = require('./src/profileMarkdown');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
-const { Console } = require('console');
-const { type } = require('os');
+//const { Console } = require('console');
+//const { type } = require('os');
 //const Employee = require('./lib/Employee');
 
 //team array
@@ -61,7 +61,7 @@ const addedEmplys = [
     {
         type: "list",
         name: "role",
-        message: "Choose employee's role:",
+        message: "Choose employee's role: ",
         choices:
             [
                 'Engineer',
@@ -70,14 +70,13 @@ const addedEmplys = [
     },
     {
         type: "input",
-        name: "Engineer's name",
-        message: "Enter engineers employee name",
-        message: "Enter intern's employee ID",
-        when: (input) => input.role === "Engineer",
+        name: "name",
+        message: "Enter employee name"
+        
     },
     {
         type: "input",
-        
+        message: "Enter engineer's employee ID",
         name: "Engineer's Id",
         validate: nameInput => {
             if (isNaN(nameInput)) {
@@ -86,21 +85,20 @@ const addedEmplys = [
             } else {
                 return true;
             }
-        },
-        message: "Enter engineer's employee ID",
-        when: (input) => input.role === "Engineer"
+        }
+        //when: (input) => input.role === "Engineer"
     },
     {
         type: "input",
         name: "Enter engineer's email",
-        message: "Enter employee's email",
-        when: (input) => input.role === "Engineer",
+        message: "Enter email",
+        //when: (input) => input.role === "Engineer",
     },
     {
         type: "input",
         name: "github_username",
         message: "Enter engineer's GitHub username",
-        when: (input) => input.role === "Engineer",
+        //when: (input) => input.role === "Engineer",
         validate: nameInput => {
             if (nameInput) {
                 return true;
@@ -112,11 +110,11 @@ const addedEmplys = [
     {
         type: "input",
         name: " Intern's name",
-        message: "Enter intern's name",
-        when: (input) => input.role === "Intern",
+        message: "Enter intern's name"
     },
     {
         type: "input",
+        message: "Enter intern's employee ID",
         name: " Intern's Id",
         validate: nameInput => {
             if (isNaN(nameInput)) {
@@ -126,20 +124,20 @@ const addedEmplys = [
                 return true;
             }
         },
-        message: "Enter intern's employee ID",
-        when: (input) => input.role === "Intern"
+        
+        //when: (input) => input.role === "Intern"
     },
     {
         type: "input",
         name: "Intern's email",
         message: "Enter intern's email",
-        when: (input) => input.role === "Intern"
+        //when: (input) => input.role === "Intern"
     },
     {
         type: "input",
         name: "school",
         message: "Enter Intern's last school attended",
-        when: (input) => input.role === "Intern",
+        //when: (input) => input.role === "Intern",
         validate: nameInput => {
             if (nameInput) {
                 return true;
@@ -188,7 +186,7 @@ function init() {
             teamList.push(addedMan);
             //console.log(JSON.stringify(teamList) + " got it");
             //console.log(addedMan);
-            console.log('creating Index...');
+            //console.log('creating Index...');
             
         moreEmployees();
         });
@@ -199,20 +197,17 @@ function moreEmployees () {
     .then (function(inputs){
         let role = inputs.role;
         switch(role) {
-            case 'Intern' :
-                let intern = new Intern(inputs.id, inputs.name, inputs.email, inputs.school);
-                teamList.push(intern);
-                finishTeam();
-                break;
             case 'Engineer' :
                 let engineer = new Engineer(inputs.id, inputs.name, inputs.email, inputs.github_username);
                 teamList.push(engineer);
                 finishTeam();
                 break;
-
+            case 'Intern' :
+                let intern = new Intern(inputs.id, inputs.name, inputs.email, inputs.school);
+                teamList.push(intern);
+                finishTeam();
+                break;
                 //add another case if user wants to finish team*
-    
-
         };
         
         writeToFile("Index.hmtl", generateIndexHTML(teamList));
