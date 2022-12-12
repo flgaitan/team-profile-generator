@@ -18,7 +18,11 @@ use node through terminal
 
 GITHUB REPO: https://github.com/flgaitan/team-profile-generator
 
-VIDEO LINK : https://drive.google.com/file/d/1mO3-JONQAiSSykelvr3anafK7H9U-4pB/view
+VIDEO LINK : 
+PART 1: https://drive.google.com/file/d/1mO3-JONQAiSSykelvr3anafK7H9U-4pB/view
+
+PART 2: https://drive.google.com/file/d/1yYvVJABDC9HC_lXkvJPX_HH09adf4QYJ/view
+
 
 Provide instructions and examples for use. Include screenshots as needed.
 
@@ -43,4 +47,8 @@ ISC
 
 ## Tests
 
-VIDEO LINK : https://drive.google.com/file/d/1mO3-JONQAiSSykelvr3anafK7H9U-4pB/view
+VIDEO LINKS :
+
+https://drive.google.com/file/d/1mO3-JONQAiSSykelvr3anafK7H9U-4pB/view
+
+https://drive.google.com/file/d/1yYvVJABDC9HC_lXkvJPX_HH09adf4QYJ/view

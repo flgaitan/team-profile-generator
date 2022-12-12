@@ -10,9 +10,8 @@ const generateIndexHTML = require('./src/profileMarkdown');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
-//const { Console } = require('console');
-//const { type } = require('os');
-//const Employee = require('./lib/Employee');
+
+const Employee = require('./lib/Employee');
 
 //team array
 teamList = [];
@@ -57,6 +56,8 @@ const employeeQs = [
         }
     }
 ];
+
+//new fnc containing engineer and intern info
 const addedEmplys = [
     {
         type: "list",
@@ -70,8 +71,8 @@ const addedEmplys = [
     },
     {
         type: "input",
-        name: "name",
-        message: "Enter employee name"
+        name: "Engineer's name",
+        message: "Enter engineer's name"
         
     },
     {
@@ -109,13 +110,13 @@ const addedEmplys = [
     },
     {
         type: "input",
-        name: " Intern's name",
+        name: "Intern's name",
         message: "Enter intern's name"
     },
     {
         type: "input",
         message: "Enter intern's employee ID",
-        name: " Intern's Id",
+        name: "Intern's Id",
         validate: nameInput => {
             if (isNaN(nameInput)) {
                 console.log("Please enter a valid ID");
@@ -146,39 +147,16 @@ const addedEmplys = [
             }
         }
     }
+    
  ];
-        
-//    const responses = () => {
-//     //inputs
-//     let { name, id, email, github_username, role, school } = inputs;
-//     let employee;
-//     if (role === "Engineer") {
-//         employee = new Engineer(name, id, email, github_username);
-//         console.log(employee, "Engineer is in");
-
-//     } else if (role === "Intern") {
-//         employee = new Intern(name, id, email, school);
-//         console.log(employee, "Intern in");
-//     }
-//     employeeQs.push(employee);
-//     console.log(employeeQs);
-
-// };
 
 
-
-
-
-
-//defining next member function that will populate whatever team member needs to be filled out next
-//needs work
-
-
+// write to file func
 function writeToFile(fileName, data) {
     console.log(data);
     fs.writeFileSync(path.join(process.cwd(), fileName), data);
 };
-// TODO: Create a function to initialize app
+// Created a function to initialize app, added the classes that pass that given set of information
 function init() {
     inquirer.prompt(employeeQs)
     .then(function(inputs) {
@@ -186,12 +164,13 @@ function init() {
             teamList.push(addedMan);
             //console.log(JSON.stringify(teamList) + " got it");
             //console.log(addedMan);
-            //console.log('creating Index...');
             
         moreEmployees();
         });
         
 };
+//running this fnction that contains array of objects for engineer and intern. part of breaking down code 
+//this fnc is doing a switch conditional for role selected , created with classes that will input needed information for that role
 function moreEmployees () {
     inquirer.prompt(addedEmplys)
     .then (function(inputs){
@@ -207,14 +186,15 @@ function moreEmployees () {
                 teamList.push(intern);
                 finishTeam();
                 break;
-                //add another case if user wants to finish team*
         };
         
         writeToFile("Index.hmtl", generateIndexHTML(teamList));
         
 
     })
-    //finishTeam();
+
+//finishTeam(); basically is the fnc used to ask user if more team members need to be added.
+//function works but functionality is off, however this is a big step from where code was before.
 
 }
 
@@ -230,6 +210,8 @@ function finishTeam() {
     .then(function (response){
         if (response === false){
             writeToFile("Index.hmtl", generateIndexHTML(teamList));
+            console.log('creating Index...');
+
         } else {
             moreEmployees();
         }
